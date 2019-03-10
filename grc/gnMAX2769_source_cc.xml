@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<block>
+  <name>MAX2769 Source</name>
+  <key>gnmax2769_source_cc</key>
+  <category>GNSS</category>
+  <throttle>1</throttle>
+  <import>import gnMAX2769</import>
+  <make>gnMAX2769.source_cc()</make>
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+</block>

@@ -1,0 +1,46 @@
+1. Software required
+
+To build software on Linux system the recent version (3.5.0 or later) of SDCC
+compiler is needed:
+
+http://sdcc.sourceforge.net/
+
+To install the software, the fxload utility is needed:
+
+http://www.triplespark.net/elec/periph/USB-FX2/eeprom/
+
+There is good chance that your favorite Linux distribution already has suitable
+packages, so you can install them with a package installer. If not you have to
+build them (and possibly their dependiences) from source.
+
+
+2. Building software
+
+To build the firmware, enter the src directory and do:
+
+make
+
+The file "gnMAX2769_firmware.hex" should appear in this directory if everyhing went correctly 
+To install the hex file to bin directory, run:
+
+make install
+
+After this, to clean the build directory, run:
+
+make clean
+
+This will remove all built files (except the hex file installed to bin directory).
+
+
+3. Installing the firmware to the board
+
+Installing the binary to RAM (voliatile):
+
+fxload -t fx2 -I bin/gnMAX2769_firmware.hex -D `./getdevpath -v 04b4 -p 8613`
+
+Installing the binary to boot EEPROM (permanent):
+
+fxload -t fx2 -I bin/gnMAX2769_firmware.hex -s loader/Vend_Ax.hex -c ox00 -D `./getdevpath -v 04b4 -p 8613`
+
+If the board was previously programmed, replace the -v and -p parameters with actual 
+VID and PID of the board.
