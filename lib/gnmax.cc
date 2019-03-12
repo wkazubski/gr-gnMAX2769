@@ -61,7 +61,7 @@ static void LIBUSB_CALL callback(libusb_transfer *transfer)
     if (bcount > sizeof(buffer))
         bcount -= sizeof(buffer);
 //TEST
-    printf("***Callback!****\n");
+//    printf("***Callback!****\n");
 //    time(&rawtime);
 //    timeinfo = localtime (&rawtime);
 //    printf("bytes: %d status: %d count %d time: %s\n", transfer->actual_length, transfer->status, bcount, asctime(timeinfo));
@@ -355,7 +355,7 @@ int gnmax::write_cmd(int request, int value, int index, unsigned char *bytes, in
 
     requesttype = (request & 0x80) ? VRT_VENDOR_IN : VRT_VENDOR_OUT;
 //TEST
-if (request != 0x80) printf("CMD: %02X VALUE: %02X\n",request,value);
+//    if (request != 0x80) printf("CMD: %02X VALUE: %02X\n",request,value);
 //TEST
     r = libusb_control_transfer (fx2_handle, requesttype, request, value, index, bytes, len, USB_TIMEOUT);
     if(r < 0)
