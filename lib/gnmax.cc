@@ -89,7 +89,11 @@ gnmax::gnmax(int _which)
         throw (1);
     }
 
+#if defined(LIBUSB_API_VERSION) && (LIBUSB_API_VERSION >=  0x01000106)
     r = libusb_set_option(ctx, LIBUSB_OPTION_LOG_LEVEL, 3);
+#else
+    libusb_set_debug(ctx, 3);
+#endif
 
     fx2_device = usb_fx2_find(GN3S_VID, GN3S_PID);
     if (fx2_device)
