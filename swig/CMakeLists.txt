@@ -38,7 +38,7 @@ set(GR_SWIG_INCLUDE_DIRS
     ${Boost_INCLUDE_DIRS}
 )
 
-set(GR_SWIG_LIBRARIES gr-gnmax2769 gnuradio-runtime)
+set(GR_SWIG_LIBRARIES gnuradio-gnmax2769 gnuradio-runtime)
 set(GR_SWIG_DOC_FILE ${CMAKE_CURRENT_BINARY_DIR}/gnmax_swig_doc.i)
 set(GR_SWIG_DOC_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 
