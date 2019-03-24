@@ -2,7 +2,7 @@
 <block>
   <name>MAX2769 Source</name>
   <key>gnmax2769_source_cc</key>
-  <category>GNSS</category>
+  <category>Sources</category>
   <throttle>1</throttle>
   <import>import gnMAX2769</import>
   <make>gnMAX2769.source_cc()</make>
