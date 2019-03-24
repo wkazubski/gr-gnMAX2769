@@ -24,16 +24,16 @@
 ########################################################################
 include(GrPlatform) #define LIB_SUFFIX
 
-add_library(gr-gnmax2769 SHARED gnmax_source_cc.cc gnmax_source.cc gnmax.cc)
-target_link_libraries(gr-gnmax2769 ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${LIBUSB_LIBRARIES})
-set_target_properties(gr-gnmax2769 PROPERTIES DEFINE_SYMBOL "gr_gnmax2769_EXPORTS")
+add_library(gnuradio-gnmax2769 SHARED gnmax_source_cc.cc gnmax_source.cc gnmax.cc)
+target_link_libraries(gnuradio-gnmax2769 ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${LIBUSB_LIBRARIES})
+set_target_properties(gnuradio-gnmax2769 PROPERTIES DEFINE_SYMBOL "gr_gnmax2769_EXPORTS")
 
 ########################################################################
 # Install built library files
 ########################################################################
-install(TARGETS gr-gnmax2769
+install(TARGETS gnuradio-gnmax2769
     LIBRARY DESTINATION lib${LIB_SUFFIX}
-    COMPONENT "gr-gnmax2769"
+    COMPONENT "gnuradio-gnmax2769"
 )
 
 ########################################################################
@@ -42,11 +42,11 @@ install(TARGETS gr-gnmax2769
 find_package(Boost COMPONENTS unit_test_framework)
 
 include(GrTest)
-set(GR_TEST_TARGET_DEPS gr-gnmax2769)
+set(GR_TEST_TARGET_DEPS gnuradio-gnmax2769)
 #turn each test cpp file into an executable with an int main() function
 add_definitions(-DBOOST_TEST_DYN_LINK -DBOOST_TEST_MAIN)
 
 add_executable(qa_gnmax_source_cc qa_gnmax_source_cc.cc)
-target_link_libraries(qa_gnmax_source_cc gr-gnmax2769 ${Boost_LIBRARIES} ${LIBUSB_LIBRARIES})
+target_link_libraries(qa_gnmax_source_cc gnuradio-gnmax2769 ${Boost_LIBRARIES} ${LIBUSB_LIBRARIES})
 GR_ADD_TEST(qa_gnmax_source_cc qa_gnmax_source_cc)
 
