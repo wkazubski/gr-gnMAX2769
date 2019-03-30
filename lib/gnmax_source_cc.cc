@@ -97,9 +97,6 @@ gnmax_source_cc::general_work (int noutput_items,
                                gr_vector_const_void_star &input_items,
                                gr_vector_void_star &output_items)
 {
-//TEST
-//printf ("general work: %d\n",noutput_items);
-//TEST
     int n_samples_rx;
     gr_complex *out = (gr_complex *) output_items[0];
 
@@ -118,9 +115,6 @@ gnmax_source_cc::general_work (int noutput_items,
         out[i] = gr_complex(packet.data[i].i, packet.data[i].q);
     }
 
-//TEST
-//printf ("samples: %d\n",n_samples_rx);
-//TEST
     // Tell runtime system how many output items we produced.
     return n_samples_rx;
 }

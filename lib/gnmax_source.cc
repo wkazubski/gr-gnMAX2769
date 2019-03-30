@@ -135,11 +135,6 @@ void gnmax_Source::Read_GNMAX(gnmax_ms_packet *_p, int n_samples)
 
     /* Read 5 ms */
     bread = gnmax_a->read(gbuff, n_samples);
-//TEST
-//    for (int i=0; i<10; i++)
-//        printf("%X, ",gbuff[i]);
-//    printf("\n");
-//TEST
 
     if (bread != n_samples)
     {

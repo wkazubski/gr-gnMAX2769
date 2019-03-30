@@ -48,10 +48,6 @@ static unsigned char reg3[] = {0x9E,0xC0,0x00,0x83};
 static unsigned char buffer[USB_NTRANSFERS][USB_BUFFER_SIZE];
 static int bcount;
 static int bufptr;
-//TEST
-//static time_t rawtime;
-//static struct tm * timeinfo;
-//TEST
 
 /*----------------------------------------------------------------------------------------------*/
 /*!
@@ -65,13 +61,6 @@ static void LIBUSB_CALL callback(libusb_transfer *transfer)
     bcount += transfer->actual_length;
     if (bcount > sizeof(buffer))
         bcount -= sizeof(buffer);
-//TEST
-//    printf("***Callback!****\n");
-//    time(&rawtime);
-//    timeinfo = localtime (&rawtime);
-//    printf("bytes: %d status: %d count %d time: %s\n", transfer->actual_length, transfer->status, bcount, asctime(timeinfo));
-//    fflush(stdout);
-//TEST
     libusb_submit_transfer(transfer);
 }
 /*----------------------------------------------------------------------------------------------*/
@@ -139,9 +128,6 @@ gnmax::gnmax(int _which)
 /*----------------------------------------------------------------------------------------------*/
 gnmax::~gnmax()
 {
-//TEST
-printf("Closing GNMAX\n");
-//TEST
     usrp_xfer(VRQ_XFER, 0);
     usrp_xfer(VRQ_ENABLE, 0);
 
@@ -235,15 +221,6 @@ bool gnmax::usb_fx2_configure()
 //        usrp_xfer(VRQ_ENABLE, 1);
         usleep(100);
 
-//TEST
-//        ret=libusb_get_max_iso_packet_size(fx2_device, RX_ENDPOINT);
-//        printf("MAX_PACKET_SIZE:%d\n",ret);
-//        printf("RX_ENDPOINT:%d\n",RX_ENDPOINT);
-//        printf("SIZE:%d\n",USB_BLOCK_SIZE);
-//        printf("N:%d\n",USB_NBLOCKS);
-//        printf("TRANSFERS:%d\n",USB_NTRANSFERS);
-//        printf("buffer:%lu\n",sizeof(buffer));
-//TEST
         return status;
     }
 }
@@ -359,9 +336,6 @@ int gnmax::write_cmd(int request, int value, int index, unsigned char *bytes, in
     int r;
 
     requesttype = (request & 0x80) ? VRT_VENDOR_IN : VRT_VENDOR_OUT;
-//TEST
-//    if (request != 0x80) printf("CMD: %02X VALUE: %02X\n",request,value);
-//TEST
     r = libusb_control_transfer (fx2_handle, requesttype, request, value, index, bytes, len, USB_TIMEOUT);
     if(r < 0)
     {
