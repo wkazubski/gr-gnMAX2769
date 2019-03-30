@@ -45,9 +45,9 @@
  * a boost shared_ptr.  This is effectively the public constructor.
  */
 gnmax_source_cc_sptr
-gnmax_make_source_cc (int bias)
+gnmax_make_source_cc (int bias, int ant)
 {
-  return gnuradio::get_initial_sptr(new gnmax_source_cc (bias));
+  return gnuradio::get_initial_sptr(new gnmax_source_cc (bias, ant));
 }
 
 /*
@@ -65,18 +65,20 @@ static const int MIN_OUT = 1;	// minimum number of output streams
 static const int MAX_OUT = 1;	// maximum number of output streams
 
 static int bias_v;
+static int ant_v;
 
 /*
  * The private constructor
  */
-gnmax_source_cc::gnmax_source_cc (int bias)
+gnmax_source_cc::gnmax_source_cc (int bias, int ant)
   : gr::block ("gnmax_cc",
               gr::io_signature::make(MIN_IN, MAX_IN, sizeof (gr_complex)),
               gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof (gr_complex)))
 {
     // constructor code here
     bias_v = bias;
-    gnmax_drv = new gnmax_Source(bias_v);
+    ant_v = ant;
+    gnmax_drv = new gnmax_Source(bias_v, ant_v);
     fprintf(stdout,"GNMAX Start\n");
 }
 
@@ -131,4 +133,15 @@ void gnmax_source_cc::set_bias(int bias)
 {
     gnmax_drv->w_set_bias(bias);
     bias_v = bias;
+}
+
+int gnmax_source_cc::ant()
+{
+    return ant_v;
+}
+
+void gnmax_source_cc::set_ant(int ant)
+{
+    gnmax_drv->w_set_ant(ant);
+    ant_v = ant;
 }
