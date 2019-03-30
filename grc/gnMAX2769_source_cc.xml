@@ -5,7 +5,21 @@
   <category>Sources</category>
   <throttle>1</throttle>
   <import>import gnMAX2769</import>
-  <make>gnMAX2769.source_cc()</make>
+  <make>gnMAX2769.source_cc($bias)</make>
+  <param>
+    <name>Bias Voltage</name>
+    <key>bias</key>
+    <value>0</value>
+    <type>int</type>
+    <option>
+      <name>Off</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>On</name>
+      <key>1</key>
+    </option>
+  </param>
 
   <source>
     <name>out</name>

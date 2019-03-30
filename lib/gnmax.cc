@@ -66,7 +66,7 @@ static void LIBUSB_CALL callback(libusb_transfer *transfer)
 /*----------------------------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------------------------*/
-gnmax::gnmax(int _which)
+gnmax::gnmax(int _which, int bias)
 {
 
     bool ret = 0;
@@ -108,7 +108,7 @@ gnmax::gnmax(int _which)
         throw(1);
     }
 
-    ret = max2769_configure();
+    ret = max2769_configure(bias);
     if(!ret)
     {
         printf("Could not write to MAX2769\n");
@@ -229,8 +229,10 @@ bool gnmax::usb_fx2_configure()
 
 
 /*----------------------------------------------------------------------------------------------*/
-bool gnmax::max2769_configure()
+bool gnmax::max2769_configure(int bias)
 {
+    set_bias_bit(bias);
+
     if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg0, sizeof(reg0)) != sizeof (reg0))
         return false;
     if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg1, sizeof(reg1)) != sizeof (reg1))
@@ -344,5 +346,28 @@ int gnmax::write_cmd(int request, int value, int index, unsigned char *bytes, in
             printf("usb_control_msg failed: %s\n", libusb_error_name(r));
     }
     return r;
+}
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------------*/
+void gnmax::set_bias_bit(int bias)
+{
+    if (bias == 0)
+        reg0[2] &= 0x7F;
+    else
+        reg0[2] |= 0x80;
+}
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------------*/
+bool gnmax::set_bias(int bias)
+{
+    set_bias_bit(bias);
+        reg0[2] |= 0x80;
+    if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg0, sizeof(reg0)) != sizeof (reg0))
+        return false;
+    return true;
 }
 /*----------------------------------------------------------------------------------------------*/

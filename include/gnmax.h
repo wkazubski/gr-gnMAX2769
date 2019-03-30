@@ -104,15 +104,17 @@ class gnmax
         /* USB Stuff */
         libusb_context *ctx = nullptr;
 
+        void set_bias_bit(int bias);
+
     public:
 
-        gnmax(int _which);   //!< Constructor
+        gnmax(int _which, int bias);   //!< Constructor
         ~gnmax();            //!< Destructor
 
         /* FX2 functions */
         struct libusb_device* usb_fx2_find(int vid, int pid);
         bool usb_fx2_configure();
-        bool max2769_configure();
+        bool max2769_configure(int bias);
         bool usb_fx2_start_transfers();
         int read(unsigned char *buff, int bytes);
 //        int read(void *buff, int bytes);
@@ -121,6 +123,7 @@ class gnmax
         bool check_rx_overrun();
         bool usrp_xfer(char VRQ_TYPE, int start);
 //        static void LIBUSB_CALL iso_callback(libusb_transfer *transfer);
+        bool set_bias(int bias);
 
 };
 /*--------------------------------------------------------------*/
