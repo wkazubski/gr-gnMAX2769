@@ -385,7 +385,7 @@ void gnmax::set_ant_bit(int ant)
 /*----------------------------------------------------------------------------------------------*/
 bool gnmax::set_ant(int ant)
 {
-    set_ant(ant);
+    set_ant_bit(ant);
     if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg0, sizeof(reg0)) != sizeof (reg0))
         return false;
     return true;
