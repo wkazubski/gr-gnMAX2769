@@ -163,5 +163,5 @@ bool gnmax_Source::w_set_bias(int bias)
 
 bool gnmax_Source::w_set_ant(int ant)
 {
-    return gnmax_a->set_bias(ant);
+    return gnmax_a->set_ant(ant);
 }
