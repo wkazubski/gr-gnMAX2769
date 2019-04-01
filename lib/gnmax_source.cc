@@ -35,10 +35,10 @@
 
 
 /*----------------------------------------------------------------------------------------------*/
-gnmax_Source::gnmax_Source(int bias, int ant)
+gnmax_Source::gnmax_Source(gnmax_variables variables)
 {
 
-    Open_GNMAX(bias, ant);
+    Open_GNMAX(variables);
 
     overflw = soverflw = 0;
     agc_scale = 1;
@@ -73,12 +73,12 @@ void gnmax_Source::Read(gnmax_ms_packet *_p, int n_samples)
 
 
 /*----------------------------------------------------------------------------------------------*/
-void gnmax_Source::Open_GNMAX(int bias, int ant)
+void gnmax_Source::Open_GNMAX(gnmax_variables variables)
 {
 
 
     /* Create the object */
-    gnmax_a = new gnmax(0, bias, ant);
+    gnmax_a = new gnmax(0, variables);
 
 
     /* Everything is super! */

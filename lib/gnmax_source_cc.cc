@@ -64,9 +64,6 @@ static const int MAX_IN = 0;	// maximum number of input streams
 static const int MIN_OUT = 1;	// minimum number of output streams
 static const int MAX_OUT = 1;	// maximum number of output streams
 
-static int bias_v;
-static int ant_v;
-
 /*
  * The private constructor
  */
@@ -76,9 +73,9 @@ gnmax_source_cc::gnmax_source_cc (int bias, int ant)
               gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof (gr_complex)))
 {
     // constructor code here
-    bias_v = bias;
-    ant_v = ant;
-    gnmax_drv = new gnmax_Source(bias_v, ant_v);
+    variables.bias = bias;
+    variables.ant = ant;
+    gnmax_drv = new gnmax_Source(variables);
     fprintf(stdout,"GNMAX Start\n");
 }
 
@@ -126,22 +123,22 @@ gnmax_source_cc::general_work (int noutput_items,
 
 int gnmax_source_cc::bias()
 {
-    return bias_v;
+    return variables.bias;
 }
 
 void gnmax_source_cc::set_bias(int bias)
 {
     gnmax_drv->w_set_bias(bias);
-    bias_v = bias;
+    variables.bias = bias;
 }
 
 int gnmax_source_cc::ant()
 {
-    return ant_v;
+    return variables.ant;
 }
 
 void gnmax_source_cc::set_ant(int ant)
 {
     gnmax_drv->w_set_ant(ant);
-    ant_v = ant;
+    variables.ant = ant;
 }

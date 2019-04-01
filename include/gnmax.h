@@ -33,6 +33,7 @@
 #ifndef GNMAX_H_
 #define GNMAX_H_
 
+#include "gnmax_defines.h"
 
 /* Includes */
 /*--------------------------------------------------------------*/
@@ -94,7 +95,7 @@ class gnmax
 
         struct libusb_device* usb_fx2_find(int vid, int pid);
         bool usb_fx2_configure();
-        bool max2769_configure(int bias, int ant);
+        bool max2769_configure(gnmax_variables variables);
         bool usb_fx2_start_transfers();
         bool _get_status(int which, bool *trouble);
         void set_bias_bit(int bias);
@@ -102,7 +103,7 @@ class gnmax
 
     public:
 
-        gnmax(int _which, int bias, int ant);   //!< Constructor
+        gnmax(int _which, gnmax_variables variables);   //!< Constructor
         ~gnmax();            //!< Destructor
 
         /* FX2 functions */

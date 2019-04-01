@@ -78,6 +78,7 @@ private:
   /* Create the GNMAX object*/
   gnmax_Source *gnmax_drv;
   gnmax_ms_packet packet;
+  gnmax_variables variables;
 
   friend GNMAX_API gnmax_source_cc_sptr gnmax_make_source_cc (int bias, int ant);
 
