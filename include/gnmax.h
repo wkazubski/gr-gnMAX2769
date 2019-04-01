@@ -45,17 +45,6 @@
 /*--------------------------------------------------------------*/
 
 
-/* FX2 Configuration Structure */
-/*--------------------------------------------------------------*/
-struct fx2Config
-{
-    int interface;
-    int altinterface;
-    libusb_device_handle *udev;
-};
-/*--------------------------------------------------------------*/
-
-
 /* FX2 Stuff */
 /*--------------------------------------------------------------*/
 #define RX_ENDPOINT      (0x86)
@@ -96,7 +85,6 @@ class gnmax
         int which;
 
         /* GN3S FX2 Stuff */
-        struct fx2Config fx2_config;
         struct libusb_device *fx2_device;
         struct libusb_device_handle *fx2_handle;
         struct libusb_transfer *transfer[USB_NTRANSFERS];
@@ -118,12 +106,10 @@ class gnmax
         bool max2769_configure(int bias, int ant);
         bool usb_fx2_start_transfers();
         int read(unsigned char *buff, int bytes);
-//        int read(void *buff, int bytes);
         int write_cmd(int request, int value, int index, unsigned char *bytes, int len);
         bool _get_status(int which, bool *trouble);
         bool check_rx_overrun();
         bool usrp_xfer(char VRQ_TYPE, int start);
-//        static void LIBUSB_CALL iso_callback(libusb_transfer *transfer);
         bool set_bias(int bias);
         bool set_ant(int ant);
 

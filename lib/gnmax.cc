@@ -276,7 +276,6 @@ bool gnmax::usb_fx2_start_transfers()
 /*----------------------------------------------------------------------------------------------*/
 int gnmax::read(unsigned char *buff, int bytes)
 {
-//    return(fx2_config.d_ephandle->read(buff, bytes));
     int n;
     if (bcount < bytes)
         n = bcount;
@@ -285,7 +284,6 @@ int gnmax::read(unsigned char *buff, int bytes)
     for (int i=0; i<n; i++)
     {
         buff[i] = buffer[0][bufptr++];
-//        buff[i] = *(buffer + bufptr++);
         if (bufptr == sizeof(buffer))
             bufptr = 0;
     } 
