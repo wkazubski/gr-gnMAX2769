@@ -100,6 +100,7 @@ class gnmax
         bool _get_status(int which, bool *trouble);
         void set_bias_bit(int bias);
         void set_ant_bit(int ant);
+        void set_freq_bit(int freq);
 
     public:
 
@@ -113,6 +114,7 @@ class gnmax
         bool usrp_xfer(char VRQ_TYPE, int start);
         bool set_bias(int bias);
         bool set_ant(int ant);
+        bool set_freq(int freq);
 
 };
 /*--------------------------------------------------------------*/

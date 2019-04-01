@@ -80,6 +80,7 @@ class gnmax_Source
 		int getOvrflw(){return(overflw);}
 		bool w_set_bias(int bias);
 		bool w_set_ant(int ant);
+		bool w_set_freq(int freq);
 };
 
 #endif /* GNMAX_SOURCE_H_ */

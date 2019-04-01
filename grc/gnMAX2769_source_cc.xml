@@ -5,7 +5,7 @@
   <category>Sources</category>
   <throttle>1</throttle>
   <import>import gnMAX2769</import>
-  <make>gnMAX2769.source_cc($bias,$ant)</make>
+  <make>gnMAX2769.source_cc($bias,$ant,$freq)</make>
   <param>
     <name>Bias Voltage</name>
     <key>bias</key>
@@ -23,11 +23,11 @@
   <param>
     <name>Antenna Select</name>
     <key>ant</key>
-    <value>3</value>
+    <value>0</value>
     <type>int</type>
     <option>
       <name>Auto</name>
-      <key>3</key>
+      <key>0</key>
     </option>
     <option>
       <name>Ant 1</name>
@@ -39,8 +39,14 @@
     </option>
     <option>
       <name>Off</name>
-      <key>0</key>
+      <key>3</key>
     </option>
+  </param>
+  <param>
+    <name>Frequency (Hz)</name>
+    <key>freq</key>
+    <value>1575420e3</value>
+    <type>real</type>
   </param>
 
   <source>

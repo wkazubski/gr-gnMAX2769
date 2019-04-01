@@ -44,6 +44,7 @@ static unsigned char reg0[] = {0xA2,0x91,0x9A,0x30};
 static unsigned char reg1[] = {0x85,0x50,0x08,0x81};
 static unsigned char reg2[] = {0xEA,0xFF,0x1D,0xC2};
 static unsigned char reg3[] = {0x9E,0xC0,0x00,0x83};
+static unsigned char reg4[] = {0x0C,0x00,0x08,0x04};
 
 static unsigned char buffer[USB_NTRANSFERS][USB_BUFFER_SIZE];
 static int bcount;
@@ -242,6 +243,12 @@ bool gnmax::max2769_configure(gnmax_variables variables)
         return false;
     if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg3, sizeof(reg3)) != sizeof (reg3))
         return false;
+    if (variables.freq != 1536)
+    {
+        set_freq_bit(variables.freq);
+        if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg4, sizeof(reg4)) != sizeof (reg4))
+            return false;
+    }
     return true;
 }
 
@@ -389,3 +396,25 @@ bool gnmax::set_ant(int ant)
     return true;
 }
 /*----------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------------*/
+void gnmax::set_freq_bit(int freq)
+{
+    reg4[0] = freq >> 7;
+    reg4[1] &= 0x01;
+    reg4[1] |= ((freq >> 1) & 0xFF);
+}
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------------*/
+bool gnmax::set_freq(int freq)
+{
+    set_freq_bit(freq);
+    if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg4, sizeof(reg4)) != sizeof (reg4))
+        return false;
+    return true;
+}
+/*----------------------------------------------------------------------------------------------*/
+

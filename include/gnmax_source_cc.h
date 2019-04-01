@@ -61,7 +61,7 @@ typedef boost::shared_ptr<gnmax_source_cc> gnmax_source_cc_sptr;
  * constructor is private.  gnmax_source is the public
  * interface for creating new instances.
  */
-GNMAX_API gnmax_source_cc_sptr gnmax_make_source_cc (int bias, int ant);
+GNMAX_API gnmax_source_cc_sptr gnmax_make_source_cc (int bias, int ant, float freq);
 
 /*!
  * \brief MAX2769 sampler USB driver.
@@ -80,12 +80,12 @@ private:
   gnmax_ms_packet packet;
   gnmax_variables variables;
 
-  friend GNMAX_API gnmax_source_cc_sptr gnmax_make_source_cc (int bias, int ant);
+  friend GNMAX_API gnmax_source_cc_sptr gnmax_make_source_cc (int bias, int ant, float freq);
 
   /*!
    * \brief
    */
-  gnmax_source_cc (int bias, int ant);  	// private constructor
+  gnmax_source_cc (int bias, int ant, float freq);  	// private constructor
 
  public:
   ~gnmax_source_cc ();	// public destructor
@@ -100,6 +100,8 @@ private:
   void set_bias (int bias);
   int ant ();
   void set_ant (int ant);
+  float freq ();
+  void set_freq (float freq);
 };
 
 #endif /* INCLUDED_GNMAX_SOURCE_CC_H */
