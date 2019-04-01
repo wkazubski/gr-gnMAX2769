@@ -92,6 +92,11 @@ class gnmax
         /* USB Stuff */
         libusb_context *ctx = nullptr;
 
+        struct libusb_device* usb_fx2_find(int vid, int pid);
+        bool usb_fx2_configure();
+        bool max2769_configure(int bias, int ant);
+        bool usb_fx2_start_transfers();
+        bool _get_status(int which, bool *trouble);
         void set_bias_bit(int bias);
         void set_ant_bit(int ant);
 
@@ -101,13 +106,8 @@ class gnmax
         ~gnmax();            //!< Destructor
 
         /* FX2 functions */
-        struct libusb_device* usb_fx2_find(int vid, int pid);
-        bool usb_fx2_configure();
-        bool max2769_configure(int bias, int ant);
-        bool usb_fx2_start_transfers();
         int read(unsigned char *buff, int bytes);
         int write_cmd(int request, int value, int index, unsigned char *bytes, int len);
-        bool _get_status(int which, bool *trouble);
         bool check_rx_overrun();
         bool usrp_xfer(char VRQ_TYPE, int start);
         bool set_bias(int bias);
