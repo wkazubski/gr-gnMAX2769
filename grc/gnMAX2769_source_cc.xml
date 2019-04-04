@@ -5,7 +5,7 @@
   <category>Sources</category>
   <throttle>1</throttle>
   <import>import gnMAX2769</import>
-  <make>gnMAX2769.source_cc($bias,$ant,$freq)</make>
+  <make>gnMAX2769.source_cc($bias,$ant,$freq,$bw)</make>
   <param>
     <name>Bias Voltage</name>
     <key>bias</key>
@@ -47,6 +47,28 @@
     <key>freq</key>
     <value>1575420e3</value>
     <type>real</type>
+  </param>
+  <param>
+    <name>Bandwidth</name>
+    <key>bw</key>
+    <value>0</value>
+    <type>int</type>
+    <option>
+      <name>2.5MHz</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>4.2MHz</name>
+      <key>2</key>
+    </option>
+    <option>
+      <name>8MHz</name>
+      <key>1</key>
+    </option>
+    <option>
+      <name>18MHz</name>
+      <key>3</key>
+    </option>
   </param>
 
   <source>

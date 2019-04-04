@@ -101,6 +101,7 @@ class gnmax
         void set_bias_bit(int bias);
         void set_ant_bit(int ant);
         void set_freq_bit(int freq);
+        void set_bw_bit(int bw);
 
     public:
 
@@ -115,6 +116,7 @@ class gnmax
         bool set_bias(int bias);
         bool set_ant(int ant);
         bool set_freq(int freq);
+        bool set_bw(int bw);
 
 };
 /*--------------------------------------------------------------*/

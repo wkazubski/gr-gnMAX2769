@@ -28,6 +28,8 @@ typedef struct gnmax_variables {
 	int bias;
 	int ant;
 	int freq;
+	int bw;
+	int zeroif;
 
 } gnmax_variables;
 /*----------------------------------------------------------------------------------------------*/

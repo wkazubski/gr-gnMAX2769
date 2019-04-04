@@ -234,6 +234,7 @@ bool gnmax::max2769_configure(gnmax_variables variables)
 {
     set_bias_bit(variables.bias);
     set_ant_bit(variables.ant);
+    set_bw_bit(variables.bw);
 
     if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg0, sizeof(reg0)) != sizeof (reg0))
         return false;
@@ -413,6 +414,29 @@ bool gnmax::set_freq(int freq)
 {
     set_freq_bit(freq);
     if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg4, sizeof(reg4)) != sizeof (reg4))
+        return false;
+    return true;
+}
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------------*/
+void gnmax::set_bw_bit(int bw)
+{
+    reg0[2] &= 0xFE;
+    reg0[2] |= ((bw & 0x02) >> 1);
+    reg0[3] &= 0x7F;
+    reg0[3] |= ((bw & 0x01) << 7);
+    printf("BW = %d\n",bw);
+}
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------------*/
+bool gnmax::set_bw(int bw)
+{
+    set_bw_bit(bw);
+    if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg0, sizeof(reg0)) != sizeof (reg0))
         return false;
     return true;
 }

@@ -168,6 +168,11 @@ bool gnmax_Source::w_set_ant(int ant)
 
 bool gnmax_Source::w_set_freq(int freq)
 {
-    return true;
-//    return gnmax_a->set_freq(freq);
+    return gnmax_a->set_freq(freq);
 }
+
+bool gnmax_Source::w_set_bw(int bw)
+{
+    return gnmax_a->set_bw(bw);
+}
+

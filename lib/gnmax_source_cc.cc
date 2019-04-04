@@ -45,9 +45,9 @@
  * a boost shared_ptr.  This is effectively the public constructor.
  */
 gnmax_source_cc_sptr
-gnmax_make_source_cc (int bias, int ant, float freq)
+gnmax_make_source_cc (int bias, int ant, float freq, int bw)
 {
-  return gnuradio::get_initial_sptr(new gnmax_source_cc (bias, ant, freq));
+  return gnuradio::get_initial_sptr(new gnmax_source_cc (bias, ant, freq, bw));
 }
 
 /*
@@ -67,7 +67,7 @@ static const int MAX_OUT = 1;	// maximum number of output streams
 /*
  * The private constructor
  */
-gnmax_source_cc::gnmax_source_cc (int bias, int ant, float freq)
+gnmax_source_cc::gnmax_source_cc (int bias, int ant, float freq, int bw)
   : gr::block ("gnmax_cc",
               gr::io_signature::make(MIN_IN, MAX_IN, sizeof (gr_complex)),
               gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof (gr_complex)))
@@ -76,6 +76,7 @@ gnmax_source_cc::gnmax_source_cc (int bias, int ant, float freq)
     variables.bias = bias;
     variables.ant = ant;
     variables.freq = static_cast<int>(freq / 1023000 + 0.5);
+    variables.bw = bw;
     gnmax_drv = new gnmax_Source(variables);
     fprintf(stdout,"GNMAX Start\n");
 }
@@ -155,3 +156,15 @@ void gnmax_source_cc::set_freq(float freq)
     gnmax_drv->w_set_freq(f);
     variables.freq = f;
 }
+
+int gnmax_source_cc::bw()
+{
+    return variables.bw;
+}
+
+void gnmax_source_cc::set_bw(int bw)
+{
+    gnmax_drv->w_set_bw(bw);
+    variables.bw = bw;
+}
+
