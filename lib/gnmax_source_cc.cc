@@ -75,7 +75,7 @@ gnmax_source_cc::gnmax_source_cc (int bias, int ant, float freq, int bw)
     // constructor code here
     variables.bias = bias;
     variables.ant = ant;
-    variables.freq = static_cast<int>(freq / 1023000 + 0.5);
+    variables.freq = static_cast<int>(freq / 1023000 + 0.5) - 4;
     variables.bw = bw;
     gnmax_drv = new gnmax_Source(variables);
     fprintf(stdout,"GNMAX Start\n");
@@ -152,7 +152,7 @@ float gnmax_source_cc::freq()
 
 void gnmax_source_cc::set_freq(float freq)
 {
-    int f = static_cast<int>((freq / 1023000 + 0.5) - 4);
+    int f = static_cast<int>(freq / 1023000 + 0.5) - 4;
     gnmax_drv->w_set_freq(f);
     variables.freq = f;
 }
