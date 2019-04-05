@@ -6,6 +6,10 @@
   <throttle>1</throttle>
   <import>import gnMAX2769</import>
   <make>gnMAX2769.source_cc($bias,$ant,$freq,$bw)</make>
+  <callback>set_bias($bias)</callback>
+  <callback>set_ant($ant)</callback>
+  <callback>set_freq($freq)</callback>
+  <callback>set_bw($bw)</callback>
   <param>
     <name>Bias Voltage</name>
     <key>bias</key>
