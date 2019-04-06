@@ -46,6 +46,20 @@ static unsigned char reg2[] = {0xEA,0xFF,0x1D,0xC2};
 static unsigned char reg3[] = {0x9E,0xC0,0x00,0x83};
 static unsigned char reg4[] = {0x0C,0x00,0x08,0x04};
 
+/*
+FCEN and FBW bits are mapped to CONF1 control word in a strange manner:
+1) FCEN and FBW bits are in reversed order, LSB bit towards MSB of CONF1 word,
+2) bits of FCEN are inverted (negated)
+According to a datasheet, for 2,4MHz bandwidth the FCEN value is 13, or 001101. After revesing 
+their order and negating this become 010011 or 19 decimal. For 4.2MHz bandwidh, half of this is
+needed, which is 9 (001001) or 10 (001010)  Converting back gives the value of 27 (011011) or 43
+(101011). For 8MHz bandwidth, the value should be 5 (000101), which gives 23 
+
+In table below bits are sorted in following way:
+FBW0, FCEN5, ..., FCEN0, FBW1
+*/
+static const unsigned char bwbits[] = {0x1A,0x57,0xAE,0xFF};
+
 static unsigned char buffer[USB_NTRANSFERS][USB_BUFFER_SIZE];
 static int bcount;
 static int bufptr;
@@ -423,11 +437,10 @@ bool gnmax::set_freq(int freq)
 /*----------------------------------------------------------------------------------------------*/
 void gnmax::set_bw_bit(int bw)
 {
-    reg0[2] &= 0xFE;
-    reg0[2] |= ((bw & 0x02) >> 1);
+    reg0[2] &= 0x80;
+    reg0[2] |= (bwbits[bw] & 0x7F);
     reg0[3] &= 0x7F;
-    reg0[3] |= ((bw & 0x01) << 7);
-    printf("BW = %d\n",bw);
+    reg0[3] |= (bwbits[bw] & 0x80);
 }
 /*----------------------------------------------------------------------------------------------*/
 
