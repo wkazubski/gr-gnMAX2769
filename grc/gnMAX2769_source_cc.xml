@@ -27,11 +27,11 @@
   <param>
     <name>Antenna Select</name>
     <key>ant</key>
-    <value>0</value>
+    <value>3</value>
     <type>int</type>
     <option>
       <name>Auto</name>
-      <key>0</key>
+      <key>3</key>
     </option>
     <option>
       <name>Ant 1</name>
@@ -43,7 +43,7 @@
     </option>
     <option>
       <name>Off</name>
-      <key>3</key>
+      <key>0</key>
     </option>
   </param>
   <param>
