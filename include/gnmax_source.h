@@ -81,7 +81,7 @@ class gnmax_Source
 		bool w_set_bias(int bias);
 		bool w_set_ant(int ant);
 		bool w_set_freq(int freq);
-		bool w_set_bw(int bw);
+		bool w_set_bw(int bw, int zeroif);
 };
 
 #endif /* GNMAX_SOURCE_H_ */

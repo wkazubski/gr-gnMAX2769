@@ -5,7 +5,7 @@
   <category>Sources</category>
   <throttle>1</throttle>
   <import>import gnMAX2769</import>
-  <make>gnMAX2769.source_cc($bias,$ant,$freq,$bw)</make>
+  <make>gnMAX2769.source_cc($bias,$ant,$freq,$bw,$zeroif)</make>
   <callback>set_bias($bias)</callback>
   <callback>set_ant($ant)</callback>
   <callback>set_freq($freq)</callback>
@@ -72,6 +72,20 @@
     <option>
       <name>18MHz</name>
       <key>3</key>
+    </option>
+  </param>
+  <param>
+    <name>Zero IF</name>
+    <key>zeroif</key>
+    <value>0</value>
+    <type>int</type>
+    <option>
+      <name>Off</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>On</name>
+      <key>1</key>
     </option>
   </param>
 
