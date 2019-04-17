@@ -35,13 +35,17 @@
 #include "config.h"
 #endif
 
-#include <gnmax_source_cc.h>
-#include <gnmax_defines.h>
-#include <gnuradio/io_signature.h>
+#include "gnmax_source.h"
+#include "gnmax_source_cc.h"
+#include "gnuradio/io_signature.h"
 
+  /* Create the GNMAX object*/
+static gnmax_Source *gnmax_drv;
+static gnmax_ms_packet packet;
+static gnmax_variables variables;
 
 /*
- * Create a new instance of howto_square_ff and return
+ * Create a new instance of gnmax_source_cc and return
  * a boost shared_ptr.  This is effectively the public constructor.
  */
 gnmax_source_cc_sptr
@@ -57,7 +61,7 @@ gnmax_make_source_cc (int bias, int ant, float freq, int bw, int zeroif)
  * output signatures are used by the runtime system to
  * check that a valid number and type of inputs and outputs
  * are connected to this block.  In this case, we accept
- * only 1 input and 1 output.
+ * only 1 output.
  */
 static const int MIN_IN = 0;	// mininum number of input streams
 static const int MAX_IN = 0;	// maximum number of input streams

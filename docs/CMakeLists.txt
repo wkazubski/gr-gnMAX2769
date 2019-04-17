@@ -3,9 +3,9 @@
 # This file is a part of gr-gnMAX2769 projest and is based on 
 # docs/CMakeLists.txt file, a part of GN3S driver for gnss-sdr project
 #
-# gr-gnMAX2769 is free software; you can redistribute it and/or modify
+# gr-gnMAX2769 is free software, you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 3, or (at your option)
+# the Free Software Foundation, either version 3, or (at your option)
 # any later version.
 #
 # gr-gnMAX2769 is distributed in the hope that it will be useful,

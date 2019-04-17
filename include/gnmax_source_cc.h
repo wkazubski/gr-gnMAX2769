@@ -4,7 +4,7 @@
  * \author Javier Arribas, 2012. jarribas(at)cttc.es
  * \author Wojciech Kazubski, 2019. wk(at)ire.pw.edu.pl
  *
- * This file is based on gn3s_source_cc.c file, a part of GN3S driver for
+ * This file is based on gn3s_source_cc.h file, a part of GN3S driver for
  * gnss-sdr project
  *
  * -------------------------------------------------------------------------
@@ -36,8 +36,6 @@
 
 #include "gnmax_api.h"
 #include <gnuradio/block.h>
-#include "gnmax_source.h"
-#include "gnmax_defines.h"
 
 class gnmax_source_cc;
 
@@ -55,7 +53,7 @@ class gnmax_source_cc;
 typedef boost::shared_ptr<gnmax_source_cc> gnmax_source_cc_sptr;
 
 /*!
- * \brief Return a shared_ptr to a new instance of howto_square_ff.
+ * \brief Return a shared_ptr to a new instance of gnmax_source_cc.
  *
  * To avoid accidental use of raw pointers, gnmax_source's
  * constructor is private.  gnmax_source is the public
@@ -74,12 +72,6 @@ class GNMAX_API gnmax_source_cc : public gr::block
 private:
   // The friend declaration allows gnmax_source to
   // access the private constructor.
-
-  /* Create the GNMAX object*/
-  gnmax_Source *gnmax_drv;
-  gnmax_ms_packet packet;
-  gnmax_variables variables;
-
   friend GNMAX_API gnmax_source_cc_sptr gnmax_make_source_cc (int bias, int ant, float freq, int bw, int zeroif);
 
   /*!
