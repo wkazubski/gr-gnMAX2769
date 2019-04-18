@@ -97,7 +97,7 @@ gnmax_source_cc::~gnmax_source_cc ()
     // destructor code here
     if(gnmax_drv != NULL)
     {
-        fprintf(stdout,"Destructing MAX2769");
+        fprintf(stdout,"Destructing MAX2769\n");
         delete gnmax_drv;
         //delete packet;
     }
