@@ -76,7 +76,14 @@ static void LIBUSB_CALL callback(libusb_transfer *transfer)
     bcount += transfer->actual_length;
     if (bcount > sizeof(buffer))
         bcount -= sizeof(buffer);
-    libusb_submit_transfer(transfer);
+    if (transfer->status == LIBUSB_TRANSFER_COMPLETED)
+    {
+        libusb_submit_transfer(transfer);
+    }
+    else
+    {
+        libusb_free_transfer(transfer);
+    }
 }
 /*----------------------------------------------------------------------------------------------*/
 
@@ -145,6 +152,9 @@ gnmax::~gnmax()
 {
     usrp_xfer(VRQ_XFER, 0);
     usrp_xfer(VRQ_ENABLE, 0);
+
+    usb_fx2_cancel_transfers();
+    usleep(1000);
 
     libusb_release_interface(fx2_handle, RX_INTERFACE);
     libusb_close(fx2_handle);
@@ -286,6 +296,25 @@ bool gnmax::usb_fx2_start_transfers()
         if (ret != 0)
         {
             printf ("Failed to start endpoint streaming:%s", libusb_error_name(ret));
+            success = false;
+        }
+    }
+    return (success);
+}
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------------*/
+bool gnmax::usb_fx2_cancel_transfers()
+{
+    int ret;
+    bool success = true;
+    for (int i = 0; i < USB_NTRANSFERS; i++)
+    {
+        ret = libusb_cancel_transfer(transfer[i]);
+        if (ret != 0)
+        {
+            printf ("Failed to cancel transfer:%s", libusb_error_name(ret));
             success = false;
         }
     }

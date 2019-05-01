@@ -97,6 +97,7 @@ class gnmax
         bool usb_fx2_configure();
         bool max2769_configure(gnmax_variables variables);
         bool usb_fx2_start_transfers();
+        bool usb_fx2_cancel_transfers();
         bool _get_status(int which, bool *trouble);
         void set_bias_bit(int bias);
         void set_ant_bit(int ant);
