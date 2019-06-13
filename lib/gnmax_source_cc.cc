@@ -114,13 +114,11 @@ gnmax_source_cc::general_work (int noutput_items,
 
     if (noutput_items<=GNMAX_SAMPS_5MS)
     {
-        gnmax_drv->Read(&packet,noutput_items);
-        n_samples_rx = noutput_items;
+        n_samples_rx = gnmax_drv->Read(&packet,noutput_items);
     }
     else
     {
-        gnmax_drv->Read(&packet,GNMAX_SAMPS_5MS);
-        n_samples_rx = GNMAX_SAMPS_5MS;
+        n_samples_rx = gnmax_drv->Read(&packet,GNMAX_SAMPS_5MS);
     }
     for (int i = 0; i < n_samples_rx; i++)
     {

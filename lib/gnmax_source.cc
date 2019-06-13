@@ -63,11 +63,12 @@ gnmax_Source::~gnmax_Source()
 
 
 /*----------------------------------------------------------------------------------------------*/
-void gnmax_Source::Read(gnmax_ms_packet *_p, int n_samples)
+int gnmax_Source::Read(gnmax_ms_packet *_p, int n_samples)
 {
 
-    Read_GNMAX(_p, n_samples);
+    int n = Read_GNMAX(_p, n_samples);
     ms_count++;
+    return n;
 }
 /*----------------------------------------------------------------------------------------------*/
 
@@ -100,7 +101,7 @@ void gnmax_Source::Close_GNMAX()
 
 
 /*----------------------------------------------------------------------------------------------*/
-void gnmax_Source::Read_GNMAX(gnmax_ms_packet *_p, int n_samples)
+int gnmax_Source::Read_GNMAX(gnmax_ms_packet *_p, int n_samples)
 {
 
     int bread;
@@ -138,8 +139,8 @@ void gnmax_Source::Read_GNMAX(gnmax_ms_packet *_p, int n_samples)
 
     if (bread != n_samples)
     {
-        fprintf (stderr, "usb_read: ret = %d (bufsize: %d) \n", bread, n_samples);
-//WK         fprintf (stderr, "%s\n", libusb_error_name(libusb_error));
+        n_samples = bread;
+//        fprintf (stderr, "usb_read: ret = %d (bufsize: %d) \n", bread, n_samples);
     }
 
 // Store IF data as 8bit signed values
@@ -154,6 +155,8 @@ void gnmax_Source::Read_GNMAX(gnmax_ms_packet *_p, int n_samples)
 
 /* Copy to destination */
     memcpy(_p->data, pbuff, n_samples*sizeof(GNMAX_CPX));
+
+    return n_samples;
 }
 
 bool gnmax_Source::w_set_bias(int bias)
