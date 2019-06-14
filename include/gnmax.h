@@ -66,8 +66,8 @@
 #define GN3S_VID         (0x1781)
 #define GN3S_PID         (0x0B3C)
 #define PROG_SET_CMD     (0xE600)
-#define USB_BUFFER_SIZE  (16384)           //!< 8 MB
-#define USB_BLOCK_SIZE   (512)             //!< 16KB is hard limit
+#define USB_BUFFER_SIZE  (32768)
+#define USB_BLOCK_SIZE   (512)
 #define USB_NBLOCKS      (USB_BUFFER_SIZE / USB_BLOCK_SIZE)
 #define USB_NTRANSFERS   (16)
 #define USB_TIMEOUT      (1000)
