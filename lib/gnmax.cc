@@ -243,8 +243,8 @@ bool gnmax::usb_fx2_configure()
             status = -1;
         }
 
-//        usrp_xfer(VRQ_ENABLE, 1);
-        usleep(100);
+        usrp_xfer(VRQ_ENABLE, 1);
+        usleep(100000);
 
         return status;
     }
