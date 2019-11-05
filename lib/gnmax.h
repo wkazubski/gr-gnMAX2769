@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------------------------*/
-/*! \file gn3s.h
+/*! \file gnmax.h
 //
-// FILENAME: gn3s.h
+// FILENAME: gnmax.h
 //
 // DESCRIPTION: Defines the GN3S class.
 //
