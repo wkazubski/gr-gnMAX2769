@@ -149,8 +149,13 @@ int gnmax_Source::Read_GNMAX(gnmax_ms_packet *_p, int n_samples)
    int i = 0;
    for (int j=0;j<n_samples;j++)
    {
+       pbuff[i++] = (short int)((gbuff[j] & 0x03) << 1) - 3;
+       pbuff[i++] = (short int)((gbuff[j] & 0x0C) >> 1) - 3;
+/*
+       // use higher nibble
        pbuff[i++] = (short int)((gbuff[j] & 0x30) >> 3) - 3;
        pbuff[i++] = (short int)((gbuff[j] & 0xC0) >> 5) - 3;
+*/
    }
 
 /* Copy to destination */
