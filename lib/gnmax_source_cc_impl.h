@@ -30,11 +30,10 @@ namespace gr {
     {
      private:
 
-  /* Create the GNMAX object*/
+      /* Create the GNMAX object*/
       gnmax_Source *gnmax_drv;
       gnmax_ms_packet packet;
       gnmax_variables variables;
-      // Nothing to declare in this block.
 
      public:
       gnmax_source_cc_impl(int bias, int ant, float freq, int bw, int zeroif);
@@ -59,4 +58,3 @@ namespace gr {
 } // namespace gr
 
 #endif /* INCLUDED_GNMAX2769_GNMAX_SOURCE_CC_IMPL_H */
-

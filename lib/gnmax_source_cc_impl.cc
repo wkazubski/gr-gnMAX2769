@@ -26,11 +26,6 @@
 #include "gnmax_source.h"
 #include "gnmax_source_cc_impl.h"
 
-  /* Create the GNMAX object*/
-//static gnmax_Source *gnmax_drv;
-//static gnmax_ms_packet packet;
-//static gnmax_variables variables;
-
 namespace gr {
   namespace gnMAX2769 {
 
@@ -103,21 +98,11 @@ namespace gr {
       return n_samples_rx;
     }
 
-//    int gnmax_source_cc_impl::bias()
-//    {
-//      return variables.bias;
-//    }
-
     void gnmax_source_cc_impl::set_bias(int bias)
     {
       gnmax_drv->w_set_bias(bias);
       variables.bias = bias;
     }
-
-//    int gnmax_source_cc_impl::ant()
-//    {
-//      return variables.ant;
-//    }
 
     void gnmax_source_cc_impl::set_ant(int ant)
     {
@@ -125,22 +110,12 @@ namespace gr {
       variables.ant = ant;
     }
 
-//    float gnmax_source_cc_impl::freq()
-//    {
-//      return static_cast<float>((variables.freq + 4 - variables.zeroif) * 10230000);
-//    }
-
     void gnmax_source_cc_impl::set_freq(float freq)
     {
       int f = static_cast<int>(freq / 1023000 + 0.5) - 4 + variables.zeroif;
       gnmax_drv->w_set_freq(f);
       variables.freq = f;
     }
-
-//    int gnmax_source_cc_impl::bw()
-//    {
-//      return variables.bw;
-//    }
 
     void gnmax_source_cc_impl::set_bw(int bw)
     {
