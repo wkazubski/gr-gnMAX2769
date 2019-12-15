@@ -91,7 +91,7 @@ void gnmax_Source::Close_GNMAX()
 {
 
     if(gnmax_a != NULL) delete gnmax_a;
-    //fprintf(stdout,"Destructing GN3S\n");
+    //fprintf(stdout,"Destructing GNMAX\n");
 
 }
 /*----------------------------------------------------------------------------------------------*/
@@ -117,7 +117,7 @@ int gnmax_Source::Read_GNMAX(gnmax_ms_packet *_p, int n_samples)
             usleep(100);
             started = gnmax_a->usrp_xfer(VRQ_XFER, 1);
         }
-        printf("started TX\n");
+        printf("started RX\n");
         flag_first_read=false;
     }
 
