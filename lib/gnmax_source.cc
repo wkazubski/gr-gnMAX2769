@@ -40,9 +40,6 @@ gnmax_Source::gnmax_Source(gnmax_variables variables)
 
     Open_GNMAX(variables);
 
-    overflw = soverflw = 0;
-    agc_scale = 1;
-
     /* Assign to base */
     ms_count = 0;
     flag_first_read=true;

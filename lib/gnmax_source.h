@@ -53,11 +53,6 @@ class gnmax_Source
         time_t rawtime;
         struct tm * timeinfo;
 
-        /* AGC Values */
-        int agc_scale;      //!< To do the AGC
-        int overflw;        //!< Overflow counter
-        int soverflw;       //!< Overflow counter
-
         /* Data buffers */
         unsigned char gbuff[GNMAX_SAMPS_5MS*2];  //!< Byte buffer for GNMAX
         GNMAX_CPX buff[GNMAX_SAMPS_5MS];         //!< Base buffer for GNMAX
@@ -68,16 +63,14 @@ class gnmax_Source
     private:
 
         void Open_GNMAX(gnmax_variables variables);       //!< Open the MAX2769 Sampler
-        void Close_GNMAX()                                //!< Close the MAX2769 Sampler
-        int Read_GNMAX(gnmax_ms_packet *_p,int n_samples) //!< Read from the MAX2769 Sampler
+        void Close_GNMAX();                               //!< Close the MAX2769 Sampler
+        int Read_GNMAX(gnmax_ms_packet *_p,int n_samples);//!< Read from the MAX2769 Sampler
 
     public:
 
         gnmax_Source(gnmax_variables variables);        //!< Create the GPS source with the proper hardware type
         ~gnmax_Source();                                //!< Kill the object
         int Read(gnmax_ms_packet *_p,int n_samples);    //!< Read in a single ms of data
-        int getScale(){return(agc_scale);}
-        int getOvrflw(){return(overflw);}
         bool w_set_bias(int bias);
         bool w_set_ant(int ant);
         bool w_set_freq(int freq);
