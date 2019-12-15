@@ -39,49 +39,49 @@
 class gnmax_Source
 {
 
-	private:
+    private:
 
-		/* Generic variables */
-		int source_type;		//!< Source type
-		int sample_mode;		//!< Sample mode
-		int leftover;			//!< Leftover bytes for USRP double buffering
-		int bwrite;			//!< Bytes somthing something?
-		int ms_count;			//!< Count the numbers of ms processed
+        /* Generic variables */
+        int source_type;    //!< Source type
+        int sample_mode;    //!< Sample mode
+        int leftover;       //!< Leftover bytes for USRP double buffering
+        int bwrite;         //!< Bytes somthing something?
+        int ms_count;       //!< Count the numbers of ms processed
 
-		bool flag_first_read;
-		/* Tag overflows */
-		time_t rawtime;
-		struct tm * timeinfo;
+        bool flag_first_read;
+        /* Tag overflows */
+        time_t rawtime;
+        struct tm * timeinfo;
 
-		/* AGC Values */
-		int agc_scale;		//!< To do the AGC
-		int overflw;			//!< Overflow counter
-		int soverflw;			//!< Overflow counter
+        /* AGC Values */
+        int agc_scale;      //!< To do the AGC
+        int overflw;        //!< Overflow counter
+        int soverflw;       //!< Overflow counter
 
-		/* Data buffers */
-		unsigned char gbuff[GNMAX_SAMPS_5MS*2]; 	//!< Byte buffer for GNMAX
-		GNMAX_CPX buff[GNMAX_SAMPS_5MS]; 		//!< Base buffer for GNMAX
+        /* Data buffers */
+        unsigned char gbuff[GNMAX_SAMPS_5MS*2];  //!< Byte buffer for GNMAX
+        GNMAX_CPX buff[GNMAX_SAMPS_5MS];         //!< Base buffer for GNMAX
 
-		/* SOURCE_GNMAX Handles */
-		gnmax *gnmax_a;
+        /* SOURCE_GNMAX Handles */
+        gnmax *gnmax_a;
 
-	private:
+    private:
 
-		void Open_GNMAX(gnmax_variables variables);			//!< Open the MAX2769 Sampler
-		void Close_GNMAX();			//!< Close the MAX2769 Sampler
-		int Read_GNMAX(gnmax_ms_packet *_p,int n_samples);	//!< Read from the MAX2769 Sampler
+        void Open_GNMAX(gnmax_variables variables);       //!< Open the MAX2769 Sampler
+        void Close_GNMAX()                                //!< Close the MAX2769 Sampler
+        int Read_GNMAX(gnmax_ms_packet *_p,int n_samples) //!< Read from the MAX2769 Sampler
 
-	public:
+    public:
 
-		gnmax_Source(gnmax_variables variables);	//!< Create the GPS source with the proper hardware type
-		~gnmax_Source();					//!< Kill the object
-		int Read(gnmax_ms_packet *_p,int n_samples);		//!< Read in a single ms of data
-		int getScale(){return(agc_scale);}
-		int getOvrflw(){return(overflw);}
-		bool w_set_bias(int bias);
-		bool w_set_ant(int ant);
-		bool w_set_freq(int freq);
-		bool w_set_bw(int bw, int zeroif);
+        gnmax_Source(gnmax_variables variables);        //!< Create the GPS source with the proper hardware type
+        ~gnmax_Source();                                //!< Kill the object
+        int Read(gnmax_ms_packet *_p,int n_samples);    //!< Read in a single ms of data
+        int getScale(){return(agc_scale);}
+        int getOvrflw(){return(overflw);}
+        bool w_set_bias(int bias);
+        bool w_set_ant(int ant);
+        bool w_set_freq(int freq);
+        bool w_set_bw(int bw, int zeroif);
 };
 
 #endif /* GNMAX_SOURCE_H_ */
