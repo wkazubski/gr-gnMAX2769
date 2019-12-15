@@ -22,7 +22,7 @@ typedef struct gnmax_ms_packet {
 } gnmax_ms_packet;
 /*----------------------------------------------------------------------------------------------*/
 
-typedef struct gnmax_variables {
+typedef struct gnmax_settings {
 
     int mode;
     int bias;
@@ -31,7 +31,7 @@ typedef struct gnmax_variables {
     int bw;
     int zeroif;
 
-} gnmax_variables;
+} gnmax_settings;
 /*----------------------------------------------------------------------------------------------*/
 
 #endif //GNMAX_DEFINES_H_

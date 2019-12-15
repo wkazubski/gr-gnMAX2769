@@ -35,10 +35,10 @@
 
 
 /*----------------------------------------------------------------------------------------------*/
-gnmax_Source::gnmax_Source(gnmax_variables variables)
+gnmax_Source::gnmax_Source(gnmax_settings settings)
 {
 
-    Open_GNMAX(variables);
+    Open_GNMAX(settings);
 
     /* Assign to base */
     ms_count = 0;
@@ -71,12 +71,12 @@ int gnmax_Source::Read(gnmax_ms_packet *_p, int n_samples)
 
 
 /*----------------------------------------------------------------------------------------------*/
-void gnmax_Source::Open_GNMAX(gnmax_variables variables)
+void gnmax_Source::Open_GNMAX(gnmax_settings settings)
 {
 
 
     /* Create the object */
-    gnmax_a = new gnmax(0, variables);
+    gnmax_a = new gnmax(0, settings);
 
 
     /* Everything is super! */

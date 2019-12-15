@@ -45,15 +45,15 @@ namespace gr {
               gr::io_signature::make(1, 1, sizeof(gr_complex)))
     {
       // constructor code here
-      variables.bias = bias;
-      variables.ant = ant;
+      settings.bias = bias;
+      settings.ant = ant;
       if (zeroif != 0)
-        variables.zeroif = 4;
+        settings.zeroif = 4;
       else
-        variables.zeroif = 0;
-      variables.freq = static_cast<int>(freq / 1023000 + 0.5) - 4 + variables.zeroif;
-      variables.bw = bw;
-      gnmax_drv = new gnmax_Source(variables);
+        settings.zeroif = 0;
+      settings.freq = static_cast<int>(freq / 1023000 + 0.5) - 4 + settings.zeroif;
+      settings.bw = bw;
+      gnmax_drv = new gnmax_Source(settings);
       fprintf(stdout,"GNMAX Start\n");
     }
 
@@ -101,26 +101,26 @@ namespace gr {
     void gnmax_source_cc_impl::set_bias(int bias)
     {
       gnmax_drv->w_set_bias(bias);
-      variables.bias = bias;
+      settings.bias = bias;
     }
 
     void gnmax_source_cc_impl::set_ant(int ant)
     {
       gnmax_drv->w_set_ant(ant);
-      variables.ant = ant;
+      settings.ant = ant;
     }
 
     void gnmax_source_cc_impl::set_freq(float freq)
     {
-      int f = static_cast<int>(freq / 1023000 + 0.5) - 4 + variables.zeroif;
+      int f = static_cast<int>(freq / 1023000 + 0.5) - 4 + settings.zeroif;
       gnmax_drv->w_set_freq(f);
-      variables.freq = f;
+      settings.freq = f;
     }
 
     void gnmax_source_cc_impl::set_bw(int bw)
     {
-      gnmax_drv->w_set_bw(bw, variables.zeroif);
-      variables.bw = bw;
+      gnmax_drv->w_set_bw(bw, settings.zeroif);
+      settings.bw = bw;
     }
 
   } /* namespace gnMAX2769 */

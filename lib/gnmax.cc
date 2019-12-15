@@ -88,7 +88,7 @@ static void LIBUSB_CALL callback(libusb_transfer *transfer)
 /*----------------------------------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------------------------------*/
-gnmax::gnmax(int _which, gnmax_variables variables)
+gnmax::gnmax(int _which, gnmax_settings settings)
 {
 
     bool ret = 0;
@@ -130,7 +130,7 @@ gnmax::gnmax(int _which, gnmax_variables variables)
         throw(1);
     }
 
-    ret = max2769_configure(variables);
+    ret = max2769_configure(settings);
     if(!ret)
     {
         printf("Could not write to MAX2769\n");
@@ -254,11 +254,11 @@ bool gnmax::usb_fx2_configure()
 
 
 /*----------------------------------------------------------------------------------------------*/
-bool gnmax::max2769_configure(gnmax_variables variables)
+bool gnmax::max2769_configure(gnmax_settings settings)
 {
-    set_bias_bit(variables.bias);
-    set_ant_bit(variables.ant);
-    set_bw_bit(variables.bw, variables.zeroif);
+    set_bias_bit(settings.bias);
+    set_ant_bit(settings.ant);
+    set_bw_bit(settings.bw, settings.zeroif);
 
     if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg0, sizeof(reg0)) != sizeof (reg0))
         return false;
@@ -269,7 +269,7 @@ bool gnmax::max2769_configure(gnmax_variables variables)
     if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg3, sizeof(reg3)) != sizeof (reg3))
         return false;
 
-    set_freq_bit(variables.freq);
+    set_freq_bit(settings.freq);
     if(write_cmd(VRQ_WRITE_CMD, 0, 0, reg4, sizeof(reg4)) != sizeof (reg4))
         return false;
 

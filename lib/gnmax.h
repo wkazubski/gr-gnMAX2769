@@ -95,7 +95,7 @@ class gnmax
 
         struct libusb_device* usb_fx2_find(int vid, int pid);
         bool usb_fx2_configure();
-        bool max2769_configure(gnmax_variables variables);
+        bool max2769_configure(gnmax_settings settings);
         bool usb_fx2_start_transfers();
         bool usb_fx2_cancel_transfers();
         bool _get_status(int which, bool *trouble);
@@ -106,7 +106,7 @@ class gnmax
 
     public:
 
-        gnmax(int _which, gnmax_variables variables);   //!< Constructor
+        gnmax(int _which, gnmax_settings settings);   //!< Constructor
         ~gnmax();            //!< Destructor
 
         /* FX2 functions */

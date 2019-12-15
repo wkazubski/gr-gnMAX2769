@@ -33,19 +33,19 @@ namespace gr {
       /* Create the GNMAX object*/
       gnmax_Source *gnmax_drv;
       gnmax_ms_packet packet;
-      gnmax_variables variables;
+      gnmax_settings settings;
 
      public:
       gnmax_source_cc_impl(int bias, int ant, float freq, int bw, int zeroif);
       ~gnmax_source_cc_impl();
 
-     int bias() const { return variables.bias; };
+     int bias() const { return settings.bias; };
      void set_bias (int bias);
-     int ant () const { return variables.ant; }; 
+     int ant () const { return settings.ant; }; 
      void set_ant (int ant);
-     float freq () const { return variables.freq; };
+     float freq () const { return settings.freq; };
      void set_freq (float freq);
-     int bw () const { return variables.bw; };
+     int bw () const { return settings.bw; };
      void set_bw (int bw);
 
       // Where all the action really happens

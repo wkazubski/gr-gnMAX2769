@@ -62,13 +62,13 @@ class gnmax_Source
 
     private:
 
-        void Open_GNMAX(gnmax_variables variables);       //!< Open the MAX2769 Sampler
+        void Open_GNMAX(gnmax_settings settings);       //!< Open the MAX2769 Sampler
         void Close_GNMAX();                               //!< Close the MAX2769 Sampler
         int Read_GNMAX(gnmax_ms_packet *_p,int n_samples);//!< Read from the MAX2769 Sampler
 
     public:
 
-        gnmax_Source(gnmax_variables variables);        //!< Create the GPS source with the proper hardware type
+        gnmax_Source(gnmax_settings settings);        //!< Create the GPS source with the proper hardware type
         ~gnmax_Source();                                //!< Kill the object
         int Read(gnmax_ms_packet *_p,int n_samples);    //!< Read in a single ms of data
         bool w_set_bias(int bias);
