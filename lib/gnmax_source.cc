@@ -60,10 +60,10 @@ gnmax_Source::~gnmax_Source()
 
 
 /*----------------------------------------------------------------------------------------------*/
-int gnmax_Source::Read(gnmax_ms_packet *_p, int n_samples)
+int gnmax_Source::Read(unsigned char *bbuf, int n_samples)
 {
 
-    int n = Read_GNMAX(_p, n_samples);
+    int n = Read_GNMAX(bbuf, n_samples);
     ms_count++;
     return n;
 }
@@ -98,7 +98,7 @@ void gnmax_Source::Close_GNMAX()
 
 
 /*----------------------------------------------------------------------------------------------*/
-int gnmax_Source::Read_GNMAX(gnmax_ms_packet *_p, int n_samples)
+int gnmax_Source::Read_GNMAX(unsigned char *bbuf, int n_samples)
 {
 
     int bread;
@@ -132,32 +132,13 @@ int gnmax_Source::Read_GNMAX(gnmax_ms_packet *_p, int n_samples)
     }
 
     /* Read 5 ms */
-    bread = gnmax_a->read(gbuff, n_samples);
+    bread = gnmax_a->read(bbuf, n_samples);
 
     if (bread != n_samples)
     {
         n_samples = bread;
 //        fprintf (stderr, "usb_read: ret = %d (bufsize: %d) \n", bread, n_samples);
     }
-
-// Store IF data as 8bit signed values
-    pbuff = (short int *)&buff[0];
-
-   int i = 0;
-   for (int j=0;j<n_samples;j++)
-   {
-       pbuff[i++] = (short int)((gbuff[j] & 0x03) << 1) - 3;
-       pbuff[i++] = (short int)((gbuff[j] & 0x0C) >> 1) - 3;
-/*
-       // use higher nibble
-       pbuff[i++] = (short int)((gbuff[j] & 0x30) >> 3) - 3;
-       pbuff[i++] = (short int)((gbuff[j] & 0xC0) >> 5) - 3;
-*/
-   }
-
-/* Copy to destination */
-    memcpy(_p->data, pbuff, n_samples*sizeof(GNMAX_CPX));
-
     return n_samples;
 }
 /*----------------------------------------------------------------------------------------------*/

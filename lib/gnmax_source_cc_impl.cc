@@ -80,20 +80,24 @@ namespace gr {
 
       // Do <+signal processing+>
       int n_samples_rx;
+      unsigned char bbuf[GNMAX_SAMPS_5MS];
 
       if (noutput_items<=GNMAX_SAMPS_5MS)
       {
-        n_samples_rx = gnmax_drv->Read(&packet,noutput_items);
+        n_samples_rx = gnmax_drv->Read(bbuf,noutput_items);
       }
       else
       {
-        n_samples_rx = gnmax_drv->Read(&packet,GNMAX_SAMPS_5MS);
+        n_samples_rx = gnmax_drv->Read(bbuf,GNMAX_SAMPS_5MS);
       }
       for (int i = 0; i < n_samples_rx; i++)
       {
-        out[i] = gr_complex(packet.data[i].i, packet.data[i].q);
+        out[i] = gr_complex((((bbuf[i] & 0x03) << 1) - 3), (((bbuf[i] & 0x0C) >> 1) - 3));
+/*
+       // use higher nibble
+        out[i] = gr_complex((((bbuf[i] & 0x30) >> 3) - 3), (((bbuf[i] & 0xC0) >> 5) - 3));
+*/
       }
-
       // Tell runtime system how many output items we produced.
       return n_samples_rx;
     }

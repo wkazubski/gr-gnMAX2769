@@ -49,28 +49,25 @@ class gnmax_Source
         int ms_count;       //!< Count the numbers of ms processed
 
         bool flag_first_read;
+
         /* Tag overflows */
         time_t rawtime;
         struct tm * timeinfo;
-
-        /* Data buffers */
-        unsigned char gbuff[GNMAX_SAMPS_5MS*2];  //!< Byte buffer for GNMAX
-        GNMAX_CPX buff[GNMAX_SAMPS_5MS];         //!< Base buffer for GNMAX
 
         /* SOURCE_GNMAX Handles */
         gnmax *gnmax_a;
 
     private:
 
-        void Open_GNMAX(gnmax_settings settings);       //!< Open the MAX2769 Sampler
-        void Close_GNMAX();                               //!< Close the MAX2769 Sampler
-        int Read_GNMAX(gnmax_ms_packet *_p,int n_samples);//!< Read from the MAX2769 Sampler
+        void Open_GNMAX(gnmax_settings settings);          //!< Open the MAX2769 Sampler
+        void Close_GNMAX();                                //!< Close the MAX2769 Sampler
+        int Read_GNMAX(unsigned char *bbuf, int n_samples);//!< Read from the MAX2769 Sampler
 
     public:
 
-        gnmax_Source(gnmax_settings settings);        //!< Create the GPS source with the proper hardware type
-        ~gnmax_Source();                                //!< Kill the object
-        int Read(gnmax_ms_packet *_p,int n_samples);    //!< Read in a single ms of data
+        gnmax_Source(gnmax_settings settings);             //!< Create the GPS source with the proper hardware type
+        ~gnmax_Source();                                   //!< Kill the object
+        int Read(unsigned char *bbuf, int n_samples);      //!< Read in a single ms of data
         bool w_set_bias(int bias);
         bool w_set_ant(int ant);
         bool w_set_freq(int freq);
