@@ -42,10 +42,6 @@ class gnmax_Source
     private:
 
         /* Generic variables */
-        int source_type;    //!< Source type
-        int sample_mode;    //!< Sample mode
-        int leftover;       //!< Leftover bytes for USRP double buffering
-        int bwrite;         //!< Bytes somthing something?
         int ms_count;       //!< Count the numbers of ms processed
 
         bool flag_first_read;

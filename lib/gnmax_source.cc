@@ -42,7 +42,7 @@ gnmax_Source::gnmax_Source(gnmax_settings settings)
 
     /* Assign to base */
     ms_count = 0;
-    flag_first_read=true;
+    flag_first_read = true;
     fprintf(stdout, "Creating GPS Source\n");
 
 }
@@ -102,14 +102,13 @@ int gnmax_Source::Read_GNMAX(unsigned char *bbuf, int n_samples)
 {
 
     int bread;
-    int started=0;
+    int started = 0;
     int check;
     bool overrun;
 
     short int *pbuff;
 
-    int BUFSIZE=n_samples*2;
-    if (flag_first_read==true)
+    if (flag_first_read == true)
     {
         /* Start transfer */
         while(!started)
@@ -118,7 +117,7 @@ int gnmax_Source::Read_GNMAX(unsigned char *bbuf, int n_samples)
             started = gnmax_a->usrp_xfer(VRQ_XFER, 1);
         }
         printf("started RX\n");
-        flag_first_read=false;
+        flag_first_read = false;
     }
 
     /* Check the overrun */
