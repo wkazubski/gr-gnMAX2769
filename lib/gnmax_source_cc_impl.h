@@ -29,7 +29,6 @@ namespace gr {
     class gnmax_source_cc_impl : public gnmax_source_cc
     {
      private:
-
       /* Create the GNMAX object*/
       gnmax_Source *gnmax_drv;
       gnmax_ms_packet packet;
@@ -39,19 +38,19 @@ namespace gr {
       gnmax_source_cc_impl(int bias, int ant, float freq, int bw, int zeroif);
       ~gnmax_source_cc_impl();
 
-     int bias() const { return settings.bias; };
-     void set_bias (int bias);
-     int ant () const { return settings.ant; }; 
-     void set_ant (int ant);
-     float freq () const { return settings.freq; };
-     void set_freq (float freq);
-     int bw () const { return settings.bw; };
-     void set_bw (int bw);
-
       // Where all the action really happens
       int work(int noutput_items,
               gr_vector_const_void_star &input_items,
               gr_vector_void_star &output_items);
+
+      int bias() const { return settings.bias; };
+      void set_bias (int bias);
+      int ant () const { return settings.ant; }; 
+      void set_ant (int ant);
+      float freq () const { return settings.freq; };
+      void set_freq (float freq);
+      int bw () const { return settings.bw; };
+      void set_bw (int bw);
     };
 
   } // namespace gnMAX2769
