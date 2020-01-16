@@ -1,4 +1,5 @@
-It is considered good practice to add examples in here to demonstrate the
-functionality of your OOT module. Python scripts, GRC flow graphs or other
-code can go here.
+This directory contains sample configuration files for gnss-sdr for different
+navigational systems working in L1 band: GPS, Glonass, Galileo and Beidou.
+The files are compatible with the 0.0.11 version of gnss-sdr and require the
+patch to be added for the gnMAX support.
 
