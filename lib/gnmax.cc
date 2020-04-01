@@ -243,9 +243,6 @@ bool gnmax::usb_fx2_configure()
             status = -1;
         }
 
-        usrp_xfer(VRQ_ENABLE, 1);
-        usleep(100000);
-
         return status;
     }
 }
@@ -256,6 +253,9 @@ bool gnmax::usb_fx2_configure()
 /*----------------------------------------------------------------------------------------------*/
 bool gnmax::max2769_configure(gnmax_settings settings)
 {
+    usrp_xfer(VRQ_ENABLE, 1);
+    usleep(100000);
+
     set_bias_bit(settings.bias);
     set_ant_bit(settings.ant);
     set_bw_bit(settings.bw, settings.zeroif);
