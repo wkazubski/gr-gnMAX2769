@@ -53,8 +53,6 @@ class gnmax_Source
         /* SOURCE_GNMAX Handles */
         gnmax *gnmax_a;
 
-    private:
-
         void Open_GNMAX(gnmax_settings settings);          //!< Open the MAX2769 Sampler
         void Close_GNMAX();                                //!< Close the MAX2769 Sampler
         int Read_GNMAX(unsigned char *bbuf, int n_samples);//!< Read from the MAX2769 Sampler
