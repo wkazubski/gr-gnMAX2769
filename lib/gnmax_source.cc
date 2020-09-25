@@ -124,10 +124,14 @@ int gnmax_Source::Read_GNMAX(unsigned char *bbuf, int n_samples)
     overrun = gnmax_a->check_rx_overrun();
     if(overrun)
     {
+#if defined(VERBOSE_OVERFLOW) && (VERBOSE_OVERFLOW >=  1)
         time(&rawtime);
         timeinfo = localtime (&rawtime);
         fprintf(stdout, "MAX2769 overflow at time %s\n", asctime(timeinfo));
         fflush(stdout);
+#else
+        fprintf(stdout, "O");
+#endif
     }
 
     /* Read 5 ms */
