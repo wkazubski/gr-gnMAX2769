@@ -98,6 +98,7 @@ class gnmax
         bool max2769_configure(gnmax_settings settings);
         bool usb_fx2_start_transfers();
         bool usb_fx2_cancel_transfers();
+        bool usrp_xfer(char VRQ_TYPE, int start);
         bool _get_status(int which, bool *trouble);
         void set_bias_bit(int bias);
         void set_ant_bit(int ant);
@@ -112,8 +113,8 @@ class gnmax
         /* FX2 functions */
         int read(unsigned char *buff, int bytes);
         int write_cmd(int request, int value, int index, unsigned char *bytes, int len);
+        bool start_xfer();
         bool check_rx_overrun();
-        bool usrp_xfer(char VRQ_TYPE, int start);
         bool set_bias(int bias);
         bool set_ant(int ant);
         bool set_freq(int freq);

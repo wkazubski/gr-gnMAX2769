@@ -114,7 +114,7 @@ int gnmax_Source::Read_GNMAX(unsigned char *bbuf, int n_samples)
         while(!started)
         {
             usleep(100);
-            started = gnmax_a->usrp_xfer(VRQ_XFER, 1);
+            started = gnmax_a->start_xfer();
         }
         printf("started RX\n");
         flag_first_read = false;

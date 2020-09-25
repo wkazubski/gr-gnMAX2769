@@ -383,6 +383,14 @@ bool gnmax::usrp_xfer(char VRQ_TYPE, int start)
 
 
 /*----------------------------------------------------------------------------------------------*/
+bool gnmax::start_xfer()
+{
+    return(usrp_xfer(VRQ_XFER, 1));
+}
+/*----------------------------------------------------------------------------------------------*/
+
+
+/*----------------------------------------------------------------------------------------------*/
 int gnmax::write_cmd(int request, int value, int index, unsigned char *bytes, int len)
 {
     int requesttype;
