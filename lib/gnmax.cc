@@ -150,8 +150,8 @@ gnmax::gnmax(int _which, gnmax_settings settings)
 /*----------------------------------------------------------------------------------------------*/
 gnmax::~gnmax()
 {
-    usrp_xfer(VRQ_XFER, 0);
-    usrp_xfer(VRQ_ENABLE, 0);
+    send_rx_cmd(VRQ_XFER, 0);
+    send_rx_cmd(VRQ_ENABLE, 0);
 
     usb_fx2_cancel_transfers();
     usleep(1000);
@@ -253,7 +253,7 @@ bool gnmax::usb_fx2_configure()
 /*----------------------------------------------------------------------------------------------*/
 bool gnmax::max2769_configure(gnmax_settings settings)
 {
-    usrp_xfer(VRQ_ENABLE, 1);
+    send_rx_cmd(VRQ_ENABLE, 1);
     usleep(100000);
 
     set_bias_bit(settings.bias);
@@ -349,7 +349,7 @@ bool gnmax::check_rx_overrun()
 {
     bool overrun;
 
-    _get_status(GS_RX_OVERRUN, &overrun);
+    get_rx_status(GS_RX_OVERRUN, &overrun);
 
     return(overrun);
 }
@@ -357,7 +357,7 @@ bool gnmax::check_rx_overrun()
 
 
 /*----------------------------------------------------------------------------------------------*/
-bool gnmax::_get_status(int command, bool *trouble)
+bool gnmax::get_rx_status(int command, bool *trouble)
 {
     unsigned char status;
 
@@ -371,7 +371,7 @@ bool gnmax::_get_status(int command, bool *trouble)
 
 
 /*----------------------------------------------------------------------------------------------*/
-bool gnmax::usrp_xfer(char VRQ_TYPE, int start)
+bool gnmax::send_rx_cmd(char VRQ_TYPE, int start)
 {
     int r;
 
@@ -385,7 +385,7 @@ bool gnmax::usrp_xfer(char VRQ_TYPE, int start)
 /*----------------------------------------------------------------------------------------------*/
 bool gnmax::start_xfer()
 {
-    return(usrp_xfer(VRQ_XFER, 1));
+    return(send_rx_cmd(VRQ_XFER, 1));
 }
 /*----------------------------------------------------------------------------------------------*/
 
