@@ -25,26 +25,24 @@ A base class is created.
 Classes based upon this are used to make more user-friendly interfaces
 to the doxygen xml docs than the generated classes provide.
 """
-from __future__ import print_function
-from __future__ import unicode_literals
 
 import os
 import pdb
 
 from xml.parsers.expat import ExpatError
 
-from .generated import compound
+from generated import compound
 
 
 class Base(object):
 
-    class Duplicate(Exception):
+    class Duplicate(StandardError):
         pass
 
-    class NoSuchMember(Exception):
+    class NoSuchMember(StandardError):
         pass
 
-    class ParsingError(Exception):
+    class ParsingError(StandardError):
         pass
 
     def __init__(self, parse_data, top=None):
@@ -97,7 +95,7 @@ class Base(object):
         for cls in self.mem_classes:
             if cls.can_parse(mem):
                 return cls
-        raise Exception(("Did not find a class for object '%s'." \
+        raise StandardError(("Did not find a class for object '%s'." \
                                  % (mem.get_name())))
 
     def convert_mem(self, mem):
@@ -105,11 +103,11 @@ class Base(object):
             cls = self.get_cls(mem)
             converted = cls.from_parse_data(mem, self.top)
             if converted is None:
-                raise Exception('No class matched this object.')
+                raise StandardError('No class matched this object.')
             self.add_ref(converted)
             return converted
-        except Exception as e:
-            print(e)
+        except StandardError, e:
+            print e
 
     @classmethod
     def includes(cls, inst):

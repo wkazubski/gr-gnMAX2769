@@ -18,49 +18,46 @@
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
 
-########################################################################
-# Check if there is C++ code at all
-########################################################################
-if(NOT gnMAX2769_sources)
-	MESSAGE(STATUS "No C++ sources... skipping swig/")
-	return()
-endif(NOT gnMAX2769_sources)
-
-########################################################################
-# Include swig generation macros
-########################################################################
-find_package(SWIG)
-find_package(PythonLibs 2)
-if(NOT SWIG_FOUND OR NOT PYTHONLIBS_FOUND)
+if(DEFINED __INCLUDED_GR_PLATFORM_CMAKE)
     return()
 endif()
-include(GrSwig)
-include(GrPython)
+set(__INCLUDED_GR_PLATFORM_CMAKE TRUE)
 
 ########################################################################
-# Setup swig generation
+# Setup additional defines for OS types
 ########################################################################
-foreach(incdir ${GNURADIO_RUNTIME_INCLUDE_DIRS})
-    list(APPEND GR_SWIG_INCLUDE_DIRS ${incdir}/gnuradio/swig)
-endforeach(incdir)
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(LINUX TRUE)
+endif()
 
-set(GR_SWIG_LIBRARIES gnuradio-gnMAX2769)
-set(GR_SWIG_DOC_FILE ${CMAKE_CURRENT_BINARY_DIR}/gnMAX2769_swig_doc.i)
-set(GR_SWIG_DOC_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+if(NOT CMAKE_CROSSCOMPILING AND LINUX AND EXISTS "/etc/debian_version")
+    set(DEBIAN TRUE)
+endif()
 
-GR_SWIG_MAKE(gnMAX2769_swig gnMAX2769_swig.i)
+if(NOT CMAKE_CROSSCOMPILING AND LINUX AND EXISTS "/etc/redhat-release")
+    set(REDHAT TRUE)
+endif()
+
+if(NOT CMAKE_CROSSCOMPILING AND LINUX AND EXISTS "/etc/slackware-version")
+    set(SLACKWARE TRUE)
+endif()
 
 ########################################################################
-# Install the build swig module
+# when the library suffix should be 64 (applies to redhat linux family)
 ########################################################################
-GR_SWIG_INSTALL(TARGETS gnMAX2769_swig DESTINATION ${GR_PYTHON_DIR}/gnMAX2769)
+if (REDHAT OR SLACKWARE)
+    set(LIB64_CONVENTION TRUE)
+endif()
+
+if(NOT DEFINED LIB_SUFFIX AND LIB64_CONVENTION AND CMAKE_SYSTEM_PROCESSOR MATCHES "64$")
+    set(LIB_SUFFIX 64)
+endif()
 
 ########################################################################
-# Install swig .i files for development
+# Detect /lib versus /lib64
 ########################################################################
-install(
-    FILES
-    gnMAX2769_swig.i
-    ${CMAKE_CURRENT_BINARY_DIR}/gnMAX2769_swig_doc.i
-    DESTINATION ${GR_INCLUDE_DIR}/gnMAX2769/swig
-)
+if (CMAKE_INSTALL_LIBDIR MATCHES lib64)
+    set(LIB_SUFFIX 64)
+endif()
+
+set(LIB_SUFFIX ${LIB_SUFFIX} CACHE STRING "lib directory suffix")

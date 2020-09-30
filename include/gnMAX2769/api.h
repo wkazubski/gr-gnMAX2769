@@ -26,9 +26,9 @@
 #include <gnuradio/attributes.h>
 
 #ifdef gnuradio_gnMAX2769_EXPORTS
-#define GNMAX2769_API __GR_ATTR_EXPORT
+#  define GNMAX2769_API __GR_ATTR_EXPORT
 #else
-#define GNMAX2769_API __GR_ATTR_IMPORT
+#  define GNMAX2769_API __GR_ATTR_IMPORT
 #endif
 
 #endif /* INCLUDED_GNMAX2769_API_H */
