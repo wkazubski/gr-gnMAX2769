@@ -30,6 +30,9 @@
 /*----------------------------------------------------------------------------------------------*/
 
 #define ISO_TRANSFER 0
+#define BUF_INIT 65536
+#define WARN_LEVEL 65536
+#define REDUCED_SIZE 1024
 
 #include "gnmax.h"
 #include <iostream>
@@ -285,7 +288,7 @@ bool gnmax::usb_fx2_start_transfers()
     int ret;
     bool success = true;
     bufptr = 0;
-    bcount = 0;
+    bcount = BUF_INIT;
 
     for (int i = 0; i < USB_NTRANSFERS; i++)
     {
@@ -331,6 +334,8 @@ int gnmax::read(unsigned char *buff, int bytes)
         n = bcount +sizeof(buffer) - bufptr;
     else
         n = bcount - bufptr;
+    if ((n < WARN_LEVEL) && (bytes > REDUCED_SIZE))
+        bytes = REDUCED_SIZE;
     if (n > bytes)
         n = bytes;
     for (int i=0; i<n; i++)
