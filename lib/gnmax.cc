@@ -31,8 +31,8 @@
 
 #define ISO_TRANSFER 0
 #define BUF_INIT 65536
-#define WARN_LEVEL 65536
-#define REDUCED_SIZE 1024
+#define WARN_LEVEL 6000
+#define REDUCED_SIZE 100
 
 #include "gnmax.h"
 #include <iostream>
@@ -331,7 +331,7 @@ int gnmax::read(unsigned char *buff, int bytes)
 {
     int n;
     if (bcount < bufptr)
-        n = bcount +sizeof(buffer) - bufptr;
+        n = bcount + sizeof(buffer) - bufptr;
     else
         n = bcount - bufptr;
     if ((n < WARN_LEVEL) && (bytes > REDUCED_SIZE))
