@@ -328,7 +328,7 @@ int gnmax::read(unsigned char *buff, int bytes)
 {
     int n;
     if (bcount < bufptr)
-        n = bcount +sizeof(buffer) - bufptr;
+        n = bcount + sizeof(buffer) - bufptr;
     else
         n = bcount - bufptr;
     if (n > bytes)
