@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/*
- * Copyright 2020 Wojciech Kazubski.
- *
+/* 
+ * Copyright 2019 Wojciech Kazubski.
+ * 
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- *
+ * 
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -23,6 +23,7 @@
 #endif
 
 #include <gnuradio/io_signature.h>
+#include "gnmax_source.h"
 #include "gnmax_source_cc_impl.h"
 
 namespace gr {
@@ -35,7 +36,6 @@ namespace gr {
         (new gnmax_source_cc_impl(bias, ant, freq, bw, zeroif));
     }
 
-
     /*
      * The private constructor
      */
@@ -44,6 +44,7 @@ namespace gr {
               gr::io_signature::make(0, 0, 0),
               gr::io_signature::make(1, 1, sizeof(gr_complex)))
     {
+      // constructor code here
       settings.bias = bias;
       settings.ant = ant;
       if (zeroif != 0)
@@ -61,10 +62,12 @@ namespace gr {
      */
     gnmax_source_cc_impl::~gnmax_source_cc_impl()
     {
+      // destructor code here
       if(gnmax_drv != NULL)
       {
         fprintf(stdout,"Destructing MAX2769\n");
         delete gnmax_drv;
+        //delete packet;
       }
     }
 
@@ -95,8 +98,6 @@ namespace gr {
         out[i] = gr_complex((((bbuf[i] & 0x30) >> 3) - 3), (((bbuf[i] & 0xC0) >> 5) - 3));
 */
       }
-
-std::cout << noutput_items << "  " << n_samples_rx << std::endl;
       // Tell runtime system how many output items we produced.
       return n_samples_rx;
     }
@@ -125,7 +126,6 @@ std::cout << noutput_items << "  " << n_samples_rx << std::endl;
       gnmax_drv->w_set_bw(bw, settings.zeroif);
       settings.bw = bw;
     }
-
 
   } /* namespace gnMAX2769 */
 } /* namespace gr */
