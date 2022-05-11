@@ -42,10 +42,10 @@ endif(NOT CMAKE_BUILD_TYPE)
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 # Set the version information here
-set(VERSION_INFO_MAJOR_VERSION 0)
-set(VERSION_INFO_API_COMPAT    2)
-set(VERSION_INFO_MINOR_VERSION 4)
-set(VERSION_INFO_MAINT_VERSION git)
+set(VERSION_MAJOR 0)
+set(VERSION_API   2)
+set(VERSION_ABI   5)
+set(VERSION_PATCH git)
 
 # Set cmake policies.
 # This will suppress developer warnings during the cmake process that can occur
