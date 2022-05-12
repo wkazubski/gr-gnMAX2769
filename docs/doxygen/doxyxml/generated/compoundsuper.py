@@ -4,16 +4,10 @@
 # Generated Thu Jun 11 18:44:25 2009 by generateDS.py.
 #
 
-from __future__ import print_function
-from __future__ import unicode_literals
-
 import sys
 
 from xml.dom import minidom
 from xml.dom import Node
-
-import six
-
 
 #
 # User methods
