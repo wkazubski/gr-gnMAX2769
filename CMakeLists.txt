@@ -44,8 +44,9 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 # Set the version information here
 set(VERSION_MAJOR 0)
 set(VERSION_API   2)
-set(VERSION_ABI   5)
-set(VERSION_PATCH git)
+set(VERSION_ABI   7)
+set(VERSION_PATCH 0)
+>>>>>>> 1746f39 (Improve library versioning)
 
 cmake_policy(SET CMP0011 NEW)
 
