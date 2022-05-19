@@ -46,7 +46,6 @@ set(VERSION_MAJOR 0)
 set(VERSION_API   2)
 set(VERSION_ABI   7)
 set(VERSION_PATCH 0)
->>>>>>> 1746f39 (Improve library versioning)
 
 cmake_policy(SET CMP0011 NEW)
 
