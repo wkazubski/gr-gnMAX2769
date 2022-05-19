@@ -32,7 +32,7 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 # Set the version information here
 set(VERSION_MAJOR 0)
 set(VERSION_API   2)
-set(VERSION_ABI   6)
+set(VERSION_ABI   8)
 set(VERSION_PATCH 0)
 
 cmake_policy(SET CMP0011 NEW)
