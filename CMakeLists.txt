@@ -32,7 +32,7 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 # Set the version information here
 set(VERSION_MAJOR 0)
 set(VERSION_API   2)
-set(VERSION_ABI   8)
+set(VERSION_ABI   9)
 set(VERSION_PATCH 0)
 
 cmake_policy(SET CMP0011 NEW)
@@ -139,14 +139,14 @@ add_custom_target(uninstall
 ########################################################################
 # Add subdirectories
 ########################################################################
-add_subdirectory(include/gnMAX2769)
+add_subdirectory(include/gnuradio/gnMAX2769)
 add_subdirectory(lib)
 add_subdirectory(apps)
 add_subdirectory(docs)
 # NOTE: manually update below to use GRC to generate C++ flowgraphs w/o python
 if(ENABLE_PYTHON)
   message(STATUS "PYTHON and GRC components are enabled")
-  add_subdirectory(python)
+  add_subdirectory(python/gnMAX2769)
   add_subdirectory(grc)
 else(ENABLE_PYTHON)
   message(STATUS "PYTHON and GRC components are disabled")
