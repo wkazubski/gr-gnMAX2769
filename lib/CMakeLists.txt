@@ -47,7 +47,7 @@ endif(NOT gnMAX2769_sources)
 add_library(gnuradio-gnMAX2769 SHARED ${gnMAX2769_sources})
 target_link_libraries(gnuradio-gnMAX2769 gnuradio::gnuradio-runtime ${LIBUSB_LIBRARIES})
 target_include_directories(gnuradio-gnMAX2769
-    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include/gnuradio>
     PUBLIC $<INSTALL_INTERFACE:include>
   )
 set_target_properties(gnuradio-gnMAX2769 PROPERTIES DEFINE_SYMBOL "gnuradio_gnMAX2769_EXPORTS")
