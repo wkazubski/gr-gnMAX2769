@@ -2,7 +2,7 @@
 
 id: gnmax2769_source_cc
 label: MAX2769 Source
-category: Sources
+category: '[GNSS]/Sources'
 flags: throttle
 
 parameters:
