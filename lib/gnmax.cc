@@ -41,8 +41,6 @@
 #include <libusb.h>
 #include <time.h>
 
-static char debug = 1; //!< 1 = Verbose
-
 static unsigned char reg0[] = {0xA2,0x91,0x9A,0x30};
 static unsigned char reg1[] = {0x85,0x50,0x08,0x81};
 static unsigned char reg2[] = {0xEA,0xFF,0x1D,0xC2};
@@ -115,7 +113,7 @@ gnmax::gnmax(int _which, gnmax_settings settings)
 #endif
 
     fx2_device = usb_fx2_find(GN3S_VID, GN3S_PID);
-    if (fx2_device)
+    if (fx2_device )
     {
         printf("Found MAX2769 Device\n");
     }
@@ -155,6 +153,7 @@ gnmax::~gnmax()
 {
     send_rx_cmd(VRQ_XFER, 0);
     send_rx_cmd(VRQ_ENABLE, 0);
+    printf("Stopped RX signal transfer\n");
 
     usb_fx2_cancel_transfers();
     usleep(1000);
@@ -215,9 +214,9 @@ bool gnmax::usb_fx2_configure()
     }
     else
     {
-        if(debug)
-            printf("Received handle for MAX2769 Front-End device \n");
-
+#if DEBUG
+        printf("Received handle for MAX2769 Front-End device \n");
+#endif
         ret = libusb_set_configuration (fx2_handle, 1);
         if(ret != 0)
         {
@@ -233,9 +232,11 @@ bool gnmax::usb_fx2_configure()
             printf ("\nDevice not programmed? \n");
             libusb_close (fx2_handle);
             status = -1;
-       }
+        }
+#if DEBUG
         else
             printf("Claimed interface\n");
+#endif
 
         ret = libusb_set_interface_alt_setting(fx2_handle, RX_INTERFACE, RX_ALTINTERFACE);
         if (ret !=0)
