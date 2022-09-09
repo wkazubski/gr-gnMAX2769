@@ -53,7 +53,7 @@ namespace gr {
       settings.freq = static_cast<int>(freq / 1023000 + 0.5) - 4 + settings.zeroif;
       settings.bw = bw;
       gnmax_drv = new gnmax_Source(settings);
-      fprintf(stdout,"GNMAX Start\n");
+      fprintf(stdout,"RF frontend initialized\n");
     }
 
     /*
@@ -63,7 +63,9 @@ namespace gr {
     {
       if(gnmax_drv != NULL)
       {
+#if DEBUG
         fprintf(stdout,"Destructing MAX2769\n");
+#endif
         delete gnmax_drv;
       }
     }

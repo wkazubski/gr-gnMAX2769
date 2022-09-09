@@ -43,8 +43,9 @@ gnmax_Source::gnmax_Source(gnmax_settings settings)
     /* Assign to base */
     ms_count = 0;
     flag_first_read = true;
+#if DEBUG
     fprintf(stdout, "Creating GPS Source\n");
-
+#endif
 }
 /*----------------------------------------------------------------------------------------------*/
 
@@ -54,7 +55,9 @@ gnmax_Source::~gnmax_Source()
 {
 
     Close_GNMAX();
+#if DEBUG
     fprintf(stdout, "Destructing GPS Source\n");
+#endif
 }
 /*----------------------------------------------------------------------------------------------*/
 
@@ -116,7 +119,7 @@ int gnmax_Source::Read_GNMAX(unsigned char *bbuf, int n_samples)
             usleep(100);
             started = gnmax_a->start_xfer();
         }
-        printf("started RX\n");
+        printf("Started RX signal transfer\n");
         flag_first_read = false;
     }
 
