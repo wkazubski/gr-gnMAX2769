@@ -153,15 +153,15 @@ gnmax::~gnmax()
 {
     send_rx_cmd(VRQ_XFER, 0);
     send_rx_cmd(VRQ_ENABLE, 0);
-    printf("Stopped RX signal transfer\n");
+    printf("\nStopped RX signal transfer\n");
+    sleep(0.2);
 
     usb_fx2_cancel_transfers();
-    usleep(1000);
 
     libusb_release_interface(fx2_handle, RX_INTERFACE);
     libusb_close(fx2_handle);
+    printf("RF front end released\n");
     libusb_exit(ctx);
-
 }
 /*----------------------------------------------------------------------------------------------*/
 
@@ -322,6 +322,7 @@ bool gnmax::usb_fx2_cancel_transfers()
             success = false;
         }
     }
+    libusb_handle_events_completed(ctx, nullptr);
     return (success);
 }
 /*----------------------------------------------------------------------------------------------*/
