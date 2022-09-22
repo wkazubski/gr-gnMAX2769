@@ -31,8 +31,8 @@
 
 #define ISO_TRANSFER 0
 #define BUF_INIT 65536
-#define WARN_LEVEL 6000
-#define REDUCED_SIZE 100
+#define WARN_LEVEL 16386
+#define REDUCED_SIZE 64
 
 #include "gnmax.h"
 #include <iostream>
