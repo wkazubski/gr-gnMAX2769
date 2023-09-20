@@ -64,6 +64,7 @@ static const unsigned char bwbits[] = {0x1A,0x57,0xAE,0xFF};
 static unsigned char buffer[USB_NTRANSFERS][USB_BUFFER_SIZE];
 static int bcount;
 static int bufptr;
+libusb_device_descriptor desc = {0};
 
 /*----------------------------------------------------------------------------------------------*/
 /*!
@@ -113,11 +114,7 @@ gnmax::gnmax(int _which, gnmax_settings settings)
 #endif
 
     fx2_device = usb_fx2_find(GN3S_VID, GN3S_PID);
-    if (fx2_device )
-    {
-        printf("Found MAX2769 Device\n");
-    }
-    else
+    if (!fx2_device )
     {
         printf("Could not find MAX2769 Device\n");
         throw(1);
@@ -184,7 +181,6 @@ struct libusb_device* gnmax::usb_fx2_find(int vid, int pid)
         for (int idx = 0; idx < count; ++idx)
         {
             libusb_device *dev = devs[idx];
-            libusb_device_descriptor desc = {0};
 
             ret = libusb_get_device_descriptor (dev, &desc);
             if ((desc.idVendor == vid) && (desc.idProduct == pid))
@@ -204,6 +200,8 @@ bool gnmax::usb_fx2_configure()
 
     char status = 0;
     int ret;
+    auto *product = new uint8_t[33]();
+    auto *sn = new uint8_t[8]();
 
     ret = libusb_open(fx2_device, &fx2_handle);
 
@@ -217,6 +215,15 @@ bool gnmax::usb_fx2_configure()
 #if DEBUG
         printf("Received handle for MAX2769 Front-End device \n");
 #endif
+
+        if (libusb_get_string_descriptor_ascii(fx2_handle, desc.iProduct, product, 31) >= 0)
+            if (libusb_get_string_descriptor_ascii(fx2_handle, desc.iSerialNumber, sn, 7) >= 0)
+            {
+                product[32] = '\0';
+                sn[8] = '\0';
+                printf("Found: %s, SN: %s\n", product, sn);
+            }
+
         ret = libusb_set_configuration (fx2_handle, 1);
         if(ret != 0)
         {
